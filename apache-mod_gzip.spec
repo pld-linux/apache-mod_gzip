@@ -1,3 +1,5 @@
+# TODO
+# - add apache_modules_api dep
 %define		mod_name	gzip
 %define 	apxs		/usr/sbin/apxs
 Summary:	Apache module: On-the-fly compression of HTML documents
@@ -19,7 +21,6 @@ Requires(triggerpostun):	%{apxs}
 Requires(triggerpostun):	grep
 Requires(triggerpostun):	sed >= 4.0
 Requires:	apache >= 2.0.40
-Obsoletes:	apache-mod_%{mod_name} <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
