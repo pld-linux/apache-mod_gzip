@@ -1,5 +1,3 @@
-# TODO
-# - add apache_modules_api dep
 %define		mod_name	gzip
 %define 	apxs		/usr/sbin/apxs
 Summary:	Apache module: On-the-fly compression of HTML documents
@@ -20,7 +18,7 @@ BuildRequires:	zlib-devel
 Requires(triggerpostun):	%{apxs}
 Requires(triggerpostun):	grep
 Requires(triggerpostun):	sed >= 4.0
-Requires:	apache >= 2.0.40
+Requires:	apache(modules-api) = %apache_modules_api
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
@@ -43,10 +41,10 @@ sposób przezroczysty dekompresuj± i wy¶wietlaj± takie dokumenty.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/conf.d,/etc/logrotate.d,%{_pkglogdir}}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf,/etc/logrotate.d,%{_pkglogdir}}
 
 install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/90_mod_%{mod_name}.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/90_mod_%{mod_name}.conf
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 > $RPM_BUILD_ROOT%{_pkglogdir}/mod_gzip.log
@@ -69,7 +67,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc *.txt logos/*
-%attr(755,root,root) %{_pkglibdir}/*
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf/*_mod_%{mod_name}.conf
+%attr(755,root,root) %{_pkglibdir}/*.so
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/*
 %attr(640,root,root) %ghost %{_pkglogdir}/*
