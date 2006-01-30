@@ -15,9 +15,6 @@ Source2:	%{name}.logrotate
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.40
 BuildRequires:	zlib-devel
-Requires(triggerpostun):	%{apxs}
-Requires(triggerpostun):	grep
-Requires(triggerpostun):	sed >= 4.0
 Requires:	apache(modules-api) = %apache_modules_api
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
