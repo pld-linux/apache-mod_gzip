@@ -7,11 +7,11 @@ Version:	2.0.40
 Release:	0.1
 License:	Apache
 Group:		Networking/Daemons
-Source0:	http://www.gknw.com/development/apache/httpd-2.0/unix/modules/mod_%{mod_name}-%{version}.tar.gz
+Source0:	http://www.gknw.net/development/apache/httpd-2.0/unix/modules/mod_%{mod_name}-%{version}.tar.gz
 # Source0-md5:	30c17d999edb5d83368369cde1c921bb
 Source1:	%{name}.conf
 Source2:	%{name}.logrotate
-#URL:		http://www.schroepl.net/projekte/mod_gzip/
+URL:		http://www.gknw.net/development/apache/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.40
 BuildRequires:	rpmbuild(macros) >= 1.268
