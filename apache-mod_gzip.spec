@@ -12,7 +12,7 @@ Source0:	http://www.gknw.net/development/apache/httpd-2.0/unix/modules/mod_%{mod
 Source1:	%{name}.conf
 Source2:	%{name}.logrotate
 URL:		http://www.gknw.net/development/apache/
-BuildRequires:	apache-apxs >= 2.0.40
+BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.40
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zlib-devel
