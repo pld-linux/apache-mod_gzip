@@ -1,6 +1,0 @@
-/var/log/httpd/mod_gzip_log {
-    olddir /var/log/archive/httpd
-    postrotate
-	/bin/killall -HUP httpd
-    endscript
-}
