@@ -10,7 +10,6 @@ Group:		Networking/Daemons/HTTP
 Source0:	http://www.gknw.net/development/apache/httpd-2.0/unix/modules/mod_%{mod_name}-%{version}.tar.gz
 # Source0-md5:	9011aa2dc4701c0301e6c608269f8835
 Source1:	%{name}.conf
-Source2:	%{name}.logrotate
 URL:		http://www.gknw.net/development/apache/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.40
@@ -38,13 +37,8 @@ sposób przezroczysty dekompresują i wyświetlają takie dokumenty.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf,/etc/logrotate.d,/var/log/httpd}
-
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/90_mod_%{mod_name}.conf
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
-
-touch $RPM_BUILD_ROOT/var/log/httpd/mod_gzip_log
-
 install .libs/mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
 
 %clean
@@ -52,7 +46,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %service -q httpd restart
-touch /var/log/httpd/mod_gzip_log && chown root:http /var/log/httpd/mod_gzip_log && chmod 620 /var/log/httpd/mod_gzip_log
 
 %postun
 if [ "$1" = "0" ]; then
@@ -64,6 +57,3 @@ fi
 %doc *.txt logos/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/*.so
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/*
-# append by webserver
-%attr(620,root,http) %ghost /var/log/httpd/mod_gzip_log
